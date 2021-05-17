@@ -41,11 +41,11 @@ Una vez validados los diseños mediante la primera placa, se desarrolló la plac
 
 \section{Consumo en deep sleep}
 Debido a la imposibilidad de poder acceder a un laboratorio con instrumental de precisión, las mediciones tomadas en los ensayos se realizaron por partes y en diferentes turnos.\\
-Como instrumento de medición se contó únicamente con un multímetro de la marca HoldPeak modelo HP-770d [REFERENCIA AL DATASHEET DEL MULTIMETRO] y sus caracteristicas se muestran en la tabla [TABLA MULTIMETRO].\\
-El instrumento utilizado tiene un rango de medición de corriente que permite medir desde los uA hasta 400 mA. Este rango pareció suficiente para la medición de corriente en ambos estados sin la necesidad de cambiar de escala. Sin embargo, en las primeras rondas de medición se advirtió que al salir del modo ahorro de energía y transmitir, la corriente consumida por el hardware generó una tensión de burden en el instrumento que causó que el microcontrolador se reseteara por desvanecimiento (Brown Out Reset-).\\
+Como instrumento de medición se contó únicamente con un multímetro de la marca HoldPeak modelo HP-770d \citep{hp770d}.\\
+El instrumento elegido tiene un rango de medición de corriente que permite medir desde los uA hasta 400 mA. Este rango pareció suficiente para la medición de corriente en ambos estados sin la necesidad de cambiar de escala. Sin embargo, en las primeras rondas de medición se advirtió que al salir del modo ahorro de energía y transmitir, la corriente consumida por el hardware generó una tensión de burden en el instrumento que causó que el microcontrolador se reseteara por desvanecimiento (Brown Out Reset-).\\
 Como solución, para el ensayo de consumo en deep sleep se grabó sobre la LoPy4 una versión de firmware que llevó al hardware al modo ahorro de energía apenas se energizo por al menos 10 minutos. Un tiempo suficiente para registrar el consumo de corriente en este modo.\\
 Para la medición de consumo durante la transmisión, se programó la versión final de firmware. Para sortear el problema de reseteo por desvanecimiento se utilizó la escala de amperes en conjunto con la función que retiene el pico máximo de la señal.\\
-La tabla TTT, expone los resultados promedio para un total de 10 mediciones efectuadas en cada modo.\\
+La tabla \ref{tabla_consumos}, expone los resultados promedio para un total de 10 mediciones efectuadas en cada modo.\\
 % \usepackage{color}
 \begin{table}[h]
 	\centering
