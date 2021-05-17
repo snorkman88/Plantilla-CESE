@@ -129,7 +129,7 @@ Además de aportar simpleza al esquemático final, el módulo elegido provee un 
  \end{figure}\\
 De esta manera las diferentes etapas de 3,3 V y 5 V se energizan únicamente cuando el microcontrolador pone en estado alto el pin ON a la entrada del \textit{load switch}.\\
  
-\subsection{Circuito de medición de valor RMS de corriente y acondicionamiento de señal}
+\subsection{Circuito de medición de valor RMS de corriente y acondicionamiento de se�l}\label{circuito_rms}
 Para medir corriente mediante un transformador de intensidad, primero es necesario convertir la intensidad en una señal de tensión equivalente y a partir de esta, calcular su valor RMS. Un resistor shunt de 0,1 $\Omega$ con encapsulado TO-220-2 fue adoptado para convertir la corriente del secundario del transformador de intensidad en una señal de tensión apta para realizar su medición RMS.\\
 En el mercado existen circuitos integrados dedicados a realizar la medición RMS de señales. Generalmente otorgan una tensión DC a la salida proporcional al valor RMS de la tensión a la entrada.\\
 La tabla \ref{tabla_chip_rms} compara el ancho de banda, la tensión pico a pico máxima admitida a sus entradas y la tensión de operación de los posibles candidatos a utilizar en este proyecto.\\
