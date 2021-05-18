@@ -339,7 +339,7 @@ Una biblioteca provista por Pycom se encarga de gestionar la interacción con la
 \subsection{Modo ahorro de energía e interrupciones}
 Luego de tomar y transmitir mediciones acorde a lo descrito en \ref{secc:medicion} y \ref{compresion_lecturas}, y antes de configurarse en modo ahorro de energía, el firmware habilita la interrupción por flanco ascendente en el pin 10 de la LoPy4 para permitir que un agente externo haga salir al hardware del modo ahorro de energ\'{i}a.\\
 El tiempo t1 requerido para tomar y transmitir mediciones es de tan solo algunos segundos. En comparación con el tiempo t2 en el que el microcontrolador permanece en modo ahorro de energía, que suele ser de varios minutos, puede ser casi despreciable.\\ 
-En caso de que no exista una interrupción, el microcontrolador permanecerá en modo ahorro de energía durante un periodo t2 hasta cumplir un ciclo T y se restablecerá debido al \textit{timeout} generado (figura \ref{fig:ciclodeepsleep}).\\
+En caso de que no exista una interrupción, el microcontrolador permanecerá en modo ahorro de energía durante un per\'{i}odo t2 hasta cumplir un ciclo T y se restablecerá debido al \textit{timeout} generado (figura \ref{fig:ciclodeepsleep}).\\
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
 	\centering
