@@ -68,16 +68,38 @@ Con un tiempo de ahorro de energía de 5 minutos luego de transmitir, el hardwar
 \subsection{Medidor de valor RMS}\label{ensayo_medidor_rms}
 En este ensayo se analiz\'{o} la linealidad del circuito medidor de valor RMS implementado en \ref{circuito_rms}.\\
 El generador FY6900, emul\'{o} el valor de la senal generada en bornes del resistor shunt sin la necesidad de utilizar el transformador de corriente ni la carga.\\
-Se realizo un barrido de 10 pasos en la amplitud de la onda senoidal a la salida del generador. Simultáneamente, se registraron las tensiones RMS a la entrada del LTC1966 y a la salida de la etapa de amplificaci\'{o}n mediante el mult\'{i}metro. Los valores registrados, se exponen en la tabla VVVV y a partir de estos se trazo la curva \ref{fig:ensayoinealidadmedidorrms}.\\
+Se realiz\'{o} un barrido de 10 pasos en la amplitud de la onda senoidal a la salida del generador. Simultáneamente, se registraron las tensiones RMS a la entrada del LTC1966 y a la salida de la etapa de amplificaci\'{o}n mediante el mult\'{i}metro. Los valores registrados, se exponen en la tabla \ref{tabla_ensayo_medidor_RMS} y a partir de estos se trazo la curva \ref{fig:ensayoinealidadmedidorrms}.\\
+La traza presentada en la figura \ref{fig:ensayoinealidadmedidorrms}, expone linealidad en todo el rango de medici\'{o}n del circuito implementado.\\
+Por su parte, el error relativo demuestra un error relativo resulto aceptable al analizar todo el rango de medicion adoptado.
+\begin{table}[h!]
+	\centering
+	\caption{Valores registrados en el ensayo de medicion de valor RMS.}
+	\begin{tabular}{ccccc} 
+		\hline
+		\begin{tabular}[c]{@{}c@{}}Vrms \\(V)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Vout \\(V)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Vout \\Esperado\\(V)\end{tabular} & \begin{tabular}[c]{@{}c@{}}error\\absoluto\\(mV)\end{tabular} & \begin{tabular}[c]{@{}c@{}}error relativo\\\%\end{tabular}  \\ 
+		\hline
+		0                                                  & 0,0520                                             & 0                                                            & 0,0520                                                        & -                                                           \\
+		0,0323                                             & 0,3260                                             & 0,3034                                                       & 0,0226                                                        & 7,44                                                        \\
+		0,0690                                             & 0,6650                                             & 0,6476                                                       & 0,0174                                                        & 2,69                                                        \\
+		0,1059                                             & 1,0050                                             & 0,9945                                                       & 0,0105                                                        & 1,06                                                        \\
+		0,1434                                             & 1,3500                                             & 1,3467                                                       & 0,0033                                                        & 0,25                                                        \\
+		0,1811                                             & 1,6960                                             & 1,7007                                                       & 0,0047                                                        & 0,28                                                        \\
+		0,2109                                             & 1,9690                                             & 1,9806                                                       & 0,0116                                                        & 0,58                                                        \\
+		0,2479                                             & 2,3090                                             & 2,3280                                                       & 0,0190                                                        & 0,82                                                        \\
+		0,2819                                             & 2,6220                                             & 2,6473                                                       & 0,0253                                                        & 0,96                                                        \\
+		0,3193                                             & 2,974                                              & 2,9985                                                       & 0,0245                                                        & 0,82                                                        \\
+		0,3535                                             & 3,313                                              & 3,3197                                                       & 0,0067                                                        & 0,20                                                        \\
+		\hline
+	\end{tabular}\label{tabla_ensayo_medidor_RMS}
+\end{table}
 % TODO: \usepackage{graphicx} required
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=1.0\linewidth]{Figures/ensayo_inealidad_medidor_RMS}
 	\caption{Traza para análisis de linealidad del medidor de valor RMS.}
 	\label{fig:ensayoinealidadmedidorrms}
 \end{figure}\\
-La traza presentada en la figura \ref{fig:ensayoinealidadmedidorrms}, expone linealidad en todo el rango de medici\'{o}n del circuito implementado.
-
+\vspace{200px}
 \subsection{Deteccion de cortes}
 Este ensayo tuvo por objeto verificar el correcto funcionamiento del circuito \ref{fig:ctodetectorcortes}, encargado detectar la interrupcion en el servicio de distribucion de energía el\'{e}ctrica y generar una interrupci\'{o}n por hardware.\\
 Como condici\'{o}n inicial se carg\'{o} el banco de supercapacitores hasta una tensión cercana a 5V. 
@@ -88,9 +110,9 @@ El banco de pruebas de la figura \ref{fig:bancopruebae2e2} compuesto por una est
 	\includegraphics[width=1.0\linewidth]{Figures/banco_prueba_e2e_1}
 	\caption{Banco de prueba utilizado en ensayos del circuito detector de corte y end-to-end.}
 	\label{fig:bancopruebae2e2}
-\end{figure}
+\end{figure}\\
 Para emular diferentes pasos de corrientes a traves del transformador de intensidad, se increment\'{o} el numero de vueltas en el devanado primario. De esta manera se aument\'{o} proporcionalmente el flujo magn\'{e}tico encauzado por el transformador de intensidad pero no la carga a la que someti\'{o} la red del banco de prueba.\\
-Los resultados de la prueba demostraron que una corriente en el primario por debajo de los 50 A, resulta de manera exitosa en una interrupci\'{o}n por hardware. El microcontrolador sali\'{o} del modo ahorro de energía y envi\'{o} de manera correcta un reporte de estado indicando una lectura de 0 A a los servicios de backend.\\
+Los resultados de l demostraron que una corriente en el primario por debajo de los 50 A, resulta de manera exitosa en una interrupci\'{o}n por hardware. El microcontrolador sali\'{o} del modo ahorro de energía y envi\'{o} de manera correcta un reporte de estado indicando una lectura de 0 A a los servicios de backend.\\
 Una demostraci\'{o}n ante el cliente del funcionamiento de esta etapa dio por finalizado este ensayo de manera exitosa.\\
 
 \section{Ensayos \textit{end-to-end}}
