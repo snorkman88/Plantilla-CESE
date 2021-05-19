@@ -68,9 +68,9 @@ Con un tiempo de ahorro de energía de 5 minutos luego de transmitir, el hardwar
 \subsection{Medidor de valor RMS}\label{ensayo_medidor_rms}
 En este ensayo se analiz\'{o} la linealidad del circuito medidor de valor RMS implementado en \ref{circuito_rms}.\\
 El generador FY6900, emul\'{o} el valor de la senal generada en bornes del resistor shunt sin la necesidad de utilizar el transformador de corriente ni la carga.\\
-Se realiz\'{o} un barrido de 10 pasos en la amplitud de la onda senoidal a la salida del generador. Simultáneamente, se registraron las tensiones RMS a la entrada del LTC1966 y a la salida de la etapa de amplificaci\'{o}n mediante el mult\'{i}metro. Los valores registrados, se exponen en la tabla \ref{tabla_ensayo_medidor_RMS} y a partir de estos se trazo la curva \ref{fig:ensayoinealidadmedidorrms}.\\
+Se realiz\'{o} un barrido de 10 pasos en la amplitud de la onda senoidal a la salida del generador. Simultáneamente, se registraron las tensiones RMS a la entrada del LTC1966 y a la salida de la etapa de amplificaci\'{o}n mediante el mult\'{i}metro. Los valores registrados, se exponen en la tabla \ref{tabla_ensayo_medidor_RMS} y a partir de estos se traz\'{o} la curva \ref{fig:ensayoinealidadmedidorrms}.\\
 La traza presentada en la figura \ref{fig:ensayoinealidadmedidorrms}, expone linealidad en todo el rango de medici\'{o}n del circuito implementado.\\
-Por su parte, el error relativo demuestra un error relativo resulto aceptable en mas del 50 \% del rango de medicion.
+Por su parte, el error relativo demuestra un error relativo resulto aceptable en mas del 50 \% del rango de medici\'{o}n.
 \begin{table}[h!]
 	\centering
 	\caption{Valores registrados en el ensayo de medicion de valor RMS.}
@@ -102,7 +102,7 @@ Por su parte, el error relativo demuestra un error relativo resulto aceptable en
 \vspace{200px}
 \subsection{Deteccion de cortes}
 Este ensayo tuvo por objeto verificar el correcto funcionamiento del circuito \ref{fig:ctodetectorcortes}, encargado detectar la interrupcion en el servicio de distribucion de energía el\'{e}ctrica y generar una interrupci\'{o}n por hardware.\\
-Como condici\'{o}n inicial se carg\'{o} el banco de supercapacitores hasta una tensión cercana a 5V. 
+Como condici\'{o}n inicial se carg\'{o} el banco de supercapacitores hasta una tensión cercana a 5 V. 
 El banco de pruebas de la figura \ref{fig:bancopruebae2e2} compuesto por una estufa de 13 A y un tomacorrientes se utilizo para simular la red de distribucion de energía electrica y sus posibles interrupciones en el suministro.\\
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
@@ -112,14 +112,14 @@ El banco de pruebas de la figura \ref{fig:bancopruebae2e2} compuesto por una est
 	\label{fig:bancopruebae2e2}
 \end{figure}\\
 Para emular diferentes pasos de corrientes a traves del transformador de intensidad, se increment\'{o} el numero de vueltas en el devanado primario. De esta manera se aument\'{o} proporcionalmente el flujo magn\'{e}tico encauzado por el transformador de intensidad pero no la carga a la que someti\'{o} la red del banco de prueba.\\
-Los resultados de l demostraron que una corriente en el primario por debajo de los 50 A, resulta de manera exitosa en una interrupci\'{o}n por hardware. El microcontrolador sali\'{o} del modo ahorro de energía y envi\'{o} de manera correcta un reporte de estado indicando una lectura de 0 A a los servicios de backend.\\
+Los resultados de l demostraron que una corriente en el primario por debajo de los 50 A, genera de manera exitosa en una interrupci\'{o}n por hardware. El microcontrolador sali\'{o} del modo ahorro de energía y envi\'{o} de manera correcta un reporte de estado indicando una lectura de 0 A a los servicios de backend.\\
 Una demostraci\'{o}n ante el cliente del funcionamiento de esta etapa dio por finalizado este ensayo de manera exitosa.\\
 
 \section{Ensayos \textit{end-to-end}}
-Con objeto de realizar una prueba final de integraci\'{o}n y funcionamiento de todas las partes, se decidi\'{o} repetir los ensayos descritos en \ref{ensayo_autonomia} y \ref{ensayo_medidor_rms} con el agregado de utilizar los paneles de Grafana para la visualizacion de los datos. De este modo, intervinieron todos los m\'{o}dulos de hardware y software desarrollados para este proyecto. Logrando asi, una verificaci\'{o}n del cumplimiento de los objetivos generales del proyecto.\\
+Con objeto de realizar una prueba final de integraci\'{o}n y funcionamiento de todas las partes, se decidi\'{o} repetir los ensayos descritos en \ref{ensayo_autonomia} y \ref{ensayo_medidor_rms} con el agregado de utilizar los paneles de Grafana para la visualizacion de los datos. De este modo, intervinieron todos los m\'{o}dulos de hardware y software desarrollados para este proyecto. As\'{i} se logr\'{o} una verificaci\'{o}n del cumplimiento de los objetivos generales del proyecto.\\
 Es importante mencionar que, si bien el autor cont\'{o} fisicamente con el hardware en todo momento, no fue as\'{i} con los servicios de backend. Estos corrieron en todo momento sobre una Raspberry Pi 3 B+ localizada en la provincia de Misiones desde el principio del proyecto.\\
 Los resultados del ensayo de autonomía expuestos en la figura [CAPTURA DE GRAFANA HISTORICO DE BATERIA], demuestran el correcto funcionamiento y despliegue de informaci\'{o}n hist\'{o}rica de la tensión en bornes del supercapacitor.\\
-Por su parte en el ensayo de medici\'{o}n de corriente de la figura \ref{fig:capturahistoricodropdown}, se expone correctamente el barrido de corriente medida por el ciruito expuesto en \ref{circuito_rms}.\\
+Por su parte en el ensayo de medici\'{o}n de corriente de la figura \ref{fig:capturahistoricodropdown}, se expone correctamente la evoluci\'{o}n de la corriente medida por el ciruito expuesto en \ref{circuito_rms}.\\
 
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
