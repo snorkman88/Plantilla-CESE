@@ -1,8 +1,6 @@
 \chapter{Diseño e implementación} % Main chapter title
 \label{Chapter3} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
-En este capítulo se exponen los componentes del hardware y software, los que han sido desarrollados, probados e implementados en el presente proyecto.\\
-La subsección \ref{seccion_firmware} expone el patrón \textit{power save loop} adoptado en la lógica de negocios, los periféricos del microcontrolador con los cuales interactúa y la rutina de interrupción que atiende al generarse un corte.
-Por último, la sección \ref{seccion_bes} otorga al lector detalles acerca de la integración entre la red LoRaWAN y los servicios de backend implementados para este proyecto.
+En este capítulo se exponen los componentes del hardware, firmware y software que han sido desarrollados, probados e implementados en el presente proyecto.\\
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -45,7 +43,7 @@ Por último, la sección \ref{seccion_bes} otorga al lector detalles acerca de l
 %	SECTION 1
 %----------------------------------------------------------------------------------------
 \section{Diseño del hardware por etapas}\label{seccion_hardware}
-En esta sección se presentan circuitos esquemáticos correspondientes a cada etapa individual y su rol en el sistema.
+En esta sección se presentan los circuitos esquemáticos correspondientes a cada etapa individual y su rol en el sistema.
 \subsection{Circuito de selección de modo}
 En el caso límite donde el nivel del acumulador es bajo y el microcontrolador ordena cambiar su estado a un relay con retención, la energía necesaria para excitar al relay puede generar una caída de tensión significativa en el acumulador. As\'{i}, todo el hardware quedaría totalmente desenergizado sin posibilidad de volver a entrar en operación, a menos que exista una intervención humana.\\
 Un caso extremo como el anteriormente mencionado, implica que el hardware debe ser capaz de restablecer su estado de operación normal tras largos períodos de tiempo fuera de servicio, aún después de la salida de servicio por falta de provisión de energía.\\
@@ -108,7 +106,7 @@ Además de aportar simpleza al esquemático final, el módulo elegido provee un 
 
  \subsection{Circuito de detección de cortes}
  Una de las funcionalidades relevantes del hardware, es detectar interrupciones en la distribución de energía debido a razones tales como sobrecarga en la línea o desastres naturales.\\
- El circuito detector de cortes propuesto en \ref{fig:ctodetectorcortes} está basado en un comparador TLV3691 de la firma Texas Instruments \citep{tlv3691}. La salida, genera una señal de 3,3 V que despierta al microcontrolador por medio de una interrupci\'{o}n por hardware.\\
+ El circuito detector de cortes propuesto en la figura \ref{fig:ctodetectorcortes} está basado en un comparador TLV3691 de la firma Texas Instruments \citep{tlv3691}. La salida genera una señal de 3,3 V que despierta al microcontrolador por medio de una interrupci\'{o}n por hardware.\\
    % TODO: \usepackage{graphicx} required
  \begin{figure}[h]
  	\centering
@@ -131,47 +129,8 @@ Además de aportar simpleza al esquemático final, el módulo elegido provee un 
  \end{figure}\\
 De esta manera las diferentes etapas de 3,3 V y 5 V se energizan únicamente cuando el microcontrolador pone en estado alto el pin ON a la entrada del \textit{load switch}.\\
  
-\subsection{Transformador de Intensidad}
-Teniendo en cuenta que el comisionamiento debe realizarse sobre redes ya existentes y operativas, no resulta práctico utilizar un transformador de intensidad de núcleo sólido. Uno de tipo núcleo partido como el presentado en la figura \ref{fig:ti_abierto}, permite sortear el problema de tener que interrumpir el cable a monitorear para enhebrarlo por el primario. Esto facilita notablemente el comisionamiento o remoción del hardware.\\
-Basado en el requerimiento \ref{requerimientos_corriente_ti}, se eligió uno fabricado por la empresa Howard Butler Ltd modelo CTSCM40-200/5 y sus características se presentan en la tabla \ref{tabla_caracteristicas_ti}.\\
-\begin{table}[h]
-	\centering
-	\caption{Características del CTSCM40-200/5 \citep{ct_hobut}.}
-	\begin{tabular}{lc} 
-		\hline
-		\multicolumn{1}{c}{Parámetro}                                                       & \begin{tabular}[c]{@{}c@{}}Valor\\máximo~\end{tabular}  \\ 
-		\hline
-		Burden (VA)                                                                         & 2,5                                                     \\
-		\begin{tabular}[c]{@{}l@{}}Corriente sobre el\\circuito primario (A)\end{tabular}   & 200                                                     \\
-		\begin{tabular}[c]{@{}l@{}}Corriente sobre~el\\circuito secundario (A)\end{tabular} & 5                                                       \\
-		\begin{tabular}[c]{@{}l@{}}Relación de \\transformación (N)\end{tabular}            & 40                                                      \\
-		\begin{tabular}[c]{@{}l@{}}Rango de~\\frecuencia (Hz)\end{tabular}                  & 50 - 60                                                 \\
-		Clase                                                                               & 1                                                       \\
-		\hline
-	\end{tabular}\label{tabla_caracteristicas_ti}
-\end{table}
-
-\begin{figure}[h!]
-	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\includegraphics[width=.7\textwidth]{./Figures/ti_abierto}
-		\caption{}
-		\label{fig:ti_abierto}
-	\end{subfigure}
-	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\includegraphics[width=.7\textwidth]{./Figures/ti_dimensiones}
-		\caption{}
-		\label{fig:ti_dimensiones}
-	\end{subfigure}
-	\caption{Transformador de intensidad de tipo núcleo partido y sus dimensiones. Imágenes tomadas de \citep{ct_hobut}.}
-	\label{fig:ti_mosaico}
-\end{figure} 
-
 \subsection{Circuito de medición de valor RMS de corriente y acondicionamiento de señal}
-Para medir corriente mediante un transformador de intensidad, primero es necesario convertir la intensidad en una señal de tensión equivalente y a partir de \'{e}sta, calcular su valor RMS. Un resistor shunt de 0,1 $\Omega$ con encapsulado TO-220-2 fue adoptado para convertir la corriente del secundario del transformador de intensidad en una señal de tensión apta para realizar su medición RMS.\\
+Para medir corriente mediante un transformador de intensidad, primero es necesario convertir la intensidad en una señal de tensión equivalente y a partir de esta, calcular su valor RMS. Un resistor shunt de 0,1 $\Omega$ con encapsulado TO-220-2 fue adoptado para convertir la corriente del secundario del transformador de intensidad en una señal de tensión apta para realizar su medición RMS.\\
 En el mercado existen circuitos integrados dedicados a realizar la medición RMS de señales. Generalmente otorgan una tensión DC a la salida proporcional al valor RMS de la tensión a la entrada.\\
 La tabla \ref{tabla_chip_rms} compara el ancho de banda, la tensión pico a pico máxima admitida a sus entradas y la tensión de operación de los posibles candidatos a utilizar en este proyecto.\\
 \begin{table}[h]
@@ -265,7 +224,7 @@ Si durante el modo \textit{deep sleep} ocurre un corte en el suministro de energ
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{Figures/patron_power_save_loop}
-	\caption{Patrón adoptado para la implementación de la lógica de negocios del firmware.}
+	\caption{Arquitectura adoptada para la implementación de la lógica de negocios del firmware.}
 	\label{fig:patronpowersaveloop}
 \end{figure}
 
@@ -323,9 +282,8 @@ return DEFAULT_ERROR_PAYLOAD
 
 if all(isinstance(medicion, int) for medicion in mediciones):
 	for medicion in mediciones:
-	#print(medicion << (12 * tribble_shifts))
-	payload = payload | (medicion << (12 * tribble_shifts))
-	tribble_shifts -=1
+		payload = payload | (medicion << (12 * tribble_shifts))
+		tribble_shifts -=1
 	return payload
 else:
 	print("ERROR: not all the elements of the list are INT. VERIFY!!!")
@@ -370,7 +328,7 @@ function Decoder(byte, port) {
 	supercapacitor = (((supercapacitor_adc<<4) *4.096/32767))*FACTOR_DIVISOR_RESISTIVO;	
 	
 	var decoded = {};
-
+	
 	decoded.corriente_1 = i1;
 	decoded.corriente_2 = i2;
 	decoded.corriente_3 = i3;
@@ -381,18 +339,34 @@ function Decoder(byte, port) {
 
 \end{lstlisting}
 Las primeras experiencias de integración con \textit{The Things Network} se realizaron a través de suscripciones a un tópico de MQTT. Sin embargo, \textit{The Things Network} ya no brinda soporte a este servicio, motivo por el cual se cambió a envíos HTTPs utilizando el método POST.\\
-En el servidor web, se encuentra un script PHP (ver anexo \ref{Appendix_PHP_code}) que atiende las consultas que llegan desde \textit{The Things Network}. Este mismo script es el encargado de almacenar los datos en la base de datos. Las credenciales de usuario de la base de datos que se utiliza en este script tiene, por motivos de seguridad, \'{u}nicamente permisos de INSERT.\\
+En el servidor web, se encuentra un script PHP (ver anexo \ref{Appendix_PHP_code}) que atiende las consultas que llegan desde \textit{The Things Network}. Este mismo script es el encargado de almacenar los datos en la base de datos.\\
 
 \subsection{Base de datos}
 Los datos recibidos a trav\'{e}s de cada petición POST mencionada en la subsecci\'{o}n \ref{seccion_lorawan}, se almacenan de manera cronológica en una tabla llamada \textit{corrientes\_por\_fase}.\\
-Las columnas que componen esta tabla y el tipo de dato que almacenan se presentan en la figura \ref{fig:tablacorrientesporfase}.\\
-% TODO: \usepackage{graphicx} required
-\begin{figure}[h]
+Las columnas que componen esta tabla y el tipo de dato que almacenan se presentan en la tabla \ref{tablacorrientesporfase}.\\
+\begin{table}[h]
 	\centering
-	\includegraphics[width=1.0\linewidth]{Figures/tabla_corrientes_por_fase}
 	\caption{Tabla de la base de datos utilizada para guardar los datos de los nodos.}
-	\label{fig:tablacorrientesporfase}
-\end{figure}\\
+	\begin{tabular}{lllccl} 
+		\hline
+		\multicolumn{1}{c}{Field} & \multicolumn{1}{c}{Type} & \multicolumn{1}{c}{Null} & Key & Default & \multicolumn{1}{c}{Extra}  \\ 
+		\hline
+		id                        & int(11)                  & No                       & PRI & NULL    & auto\_increment            \\
+		id\_sensor                & varchar(40)              & No                       &     & NULL    &                            \\
+		datetime                  & datetime                 & No                       & MUL & NULL    &                            \\
+		rssi                      & int(11)                  & Yes                      &     & NULL    &                            \\
+		snr                       & decimal(6,3)             & Yes                      &     & NULL    &                            \\
+		counter                   & int(11)                  & No                       &     & NULL    &                            \\
+		v\_supercap               & float                    & Yes                      &     & NULL    &                            \\
+		I\_fase\_1                & float                    & Yes                      &     & NULL    &                            \\
+		I\_fase\_2                & float                    & Yes                      &     & NULL    &                            \\
+		I\_fase\_3                & float                    & Yes                      &     & NULL    &                            \\
+		alerta                    & tinyint(1)               & Yes                      &     & 0       &                            \\
+		latitud                   & float                    & Yes                      &     & NULL    &                            \\
+		longitud                  & float                    & Yes                      &     & NULL    &                            \\
+		\hline
+	\end{tabular}\label{tablacorrientesporfase}
+\end{table}\\
 Es relevante destacar que el origen de los datos almacenados, es una combinación entre las mediciones realizadas por el hadware (\textit{I\_fase\_1, I\_fase\_2, I\_fase\_3, v\_supercap}), información acerca de la señal de RF provista por el \textit{gateway} (\textit{rssi} y \textit{snr}) y metadatos propios de cada nodo (\textit{id\_sensor, latitud, longitud}) provistos por el servidor de aplicaciones de \textit{The Things Network}.\\
 
 \subsection{Interfaz gráfica basada en Grafana}
@@ -406,9 +380,10 @@ La generación de gráficos de corriente por fase se presenta en la figura \ref{
 	\label{fig:historicofase}
 \end{figure}\\
 Como único inconveniente se puede mencionar la dificultad que tiene Grafana de manejar muestras temporales si no se utiliza la misma zona horaria que el sistema operativo. En este proyecto se prefirió guardar la información en la base de datos en formato de tiempo universal (UTC). Así, se contribuye a la escalabilidad y robustez del producto, pudiendo desplegarse independientemente de la zona horaria de la instalación.\\
-Para subsanar las diferencias entre la base de datos y Grafana se generaron manualmente las consultas SQL agregando el parámetro zona horaria. En la figura \ref{fig:historicofase}, el valor +10800 equivalen a los segundos necesarios para compensar en este caso UTC-3.\\
+Para subsanar las diferencias entre la base de datos y Grafana se generaron manualmente las consultas SQL agregando el parámetro zona horaria. En la figura \ref{fig:historicofase}, el valor +10800 equivale a los segundos necesarios para compensar en este caso UTC-3.\\
 Finalmente en la figura \ref{fig:worldmappanel}, se creó un panel de Worldmap y la consulta SQL se realizó contra una vista que se encarga de recoger los últimos datos individuales de cada nodo.\\
-Mediante una herramienta \textit{hover}, una ventana despliega los últimos datos enviados por cada nodo al colocar el cursor sobre el nodo de interés. Esto permite la lectura rápida de los valores de corriente y tensión en el supercapacitor.
+Mediante una herramienta \textit{hover}, una ventana despliega los últimos datos enviados por cada nodo al colocar el cursor sobre el nodo de interés. Esto permite la lectura rápida de los valores de corriente y tensión en el supercapacitor.\\
+\vspace{130px}
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
 	\centering

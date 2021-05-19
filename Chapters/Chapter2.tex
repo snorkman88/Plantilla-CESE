@@ -110,7 +110,45 @@ Muchos transformadores de corriente tienen una relación estándar de 5 A en el 
 	\caption{Circuito de medición indirecta de corriente mediante un transformador de corriente \citep{hioki}.}
 	\label{fig:dibujomedicionti}
 \end{figure}\\
-Mediante esta técnica, pequeños instrumentos pueden monitorear grandes valores de corriente manteniendo una distancia segura de las líneas de alta tensión.
+Mediante esta técnica, pequeños instrumentos pueden monitorear grandes valores de corriente manteniendo una distancia segura de las líneas de alta tensión.\\
+Teniendo en cuenta que el comisionamiento debe realizarse sobre redes ya existentes y operativas, no resulta práctico utilizar un transformador de intensidad de núcleo sólido. Uno de tipo núcleo partido como el presentado en la figura \ref{fig:ti_abierto}, permite sortear el problema de tener que interrumpir el cable a monitorear para enhebrarlo por el primario. Esto facilita notablemente el comisionamiento o remoción del hardware.\\
+Basado en el requerimiento \ref{requerimientos_corriente_ti}, se eligió uno fabricado por la empresa Howard Butler Ltd modelo CTSCM40-200/5 y sus características se presentan en la tabla \ref{tabla_caracteristicas_ti}.\\
+\begin{table}[h]
+	\centering
+	\caption{Características del CTSCM40-200/5 \citep{ct_hobut}.}
+	\begin{tabular}{lc} 
+		\hline
+		\multicolumn{1}{c}{Parámetro}                                                       & \begin{tabular}[c]{@{}c@{}}Valor\\máximo~\end{tabular}  \\ 
+		\hline
+		Burden (VA)                                                                         & 2,5                                                     \\
+		\begin{tabular}[c]{@{}l@{}}Corriente sobre el\\circuito primario (A)\end{tabular}   & 200                                                     \\
+		\begin{tabular}[c]{@{}l@{}}Corriente sobre~el\\circuito secundario (A)\end{tabular} & 5                                                       \\
+		\begin{tabular}[c]{@{}l@{}}Relación de \\transformación (N)\end{tabular}            & 40                                                      \\
+		\begin{tabular}[c]{@{}l@{}}Rango de~\\frecuencia (Hz)\end{tabular}                  & 50 - 60                                                 \\
+		Clase                                                                               & 1                                                       \\
+		\hline
+	\end{tabular}\label{tabla_caracteristicas_ti}
+\end{table}
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=.7\textwidth]{./Figures/ti_abierto}
+		\caption{}
+		\label{fig:ti_abierto}
+	\end{subfigure}
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=.7\textwidth]{./Figures/ti_dimensiones}
+		\caption{}
+		\label{fig:ti_dimensiones}
+	\end{subfigure}
+	\caption{Transformador de intensidad de tipo núcleo partido y sus dimensiones. Imágenes tomadas de \citep{ct_hobut}.}
+	\label{fig:ti_mosaico}
+\end{figure} 
+
 
 \subsection{Circuito de selección}
 A partir del lineamiento de que el TI debe estar conectado por defecto a la entrada del rectificador y al resistor shunt cuando se energiza la bobina del relay, el número y la disposición de los contactos resulta un factor relevante al momento de elegir la mejor opción. La variante comercial que cumple con el requisito \ref{req_relay} es la producida por la firma Hongfa modelo HF115F/005-2ZS4A presentada en la figura \ref{fig:relay}.
