@@ -45,7 +45,7 @@ En este capítulo se exponen los componentes del hardware, firmware y software q
 \section{Diseño del hardware por etapas}\label{seccion_hardware}
 En esta sección se presentan los circuitos esquemáticos correspondientes a cada etapa individual y su rol en el sistema.
 \subsection{Circuito de selección de modo}
-En el caso límite donde el nivel del acumulador es bajo y el microcontrolador ordena cambiar su estado a un relay con retención, la energía necesaria para excitar al relay puede generar una caída de tensión significativa en el acumulador. As\'{i}, todo el hardware quedaría totalmente desenergizado sin posibilidad de volver a entrar en operación, a menos que exista una intervención humana.\\
+Considerando el caso l\'{i}mite donde el nivel de carga presente en el acumulador es bajo y el microcontrolador ordena cambiar su estado a un relay con retención, la energía necesaria para excitar al relay puede generar una caída de tensión significativa en el acumulador. As\'{i}, todo el hardware quedaría totalmente desenergizado sin posibilidad de volver a entrar en operación, a menos que exista una intervención humana.\\
 Un caso extremo como el anteriormente mencionado, implica que el hardware debe ser capaz de restablecer su estado de operación normal tras largos períodos de tiempo fuera de servicio, aún después de la salida de servicio por falta de provisión de energía.\\
 En la figura \ref{fig:ctoselecciondemodo} se muestra el relay sin retención que se implementó,  presentado en la secci\'{o}n \ref{fig:relay}, como as\'{i} tambi\'{e}n su circuito de mando. Los terminales del transformador de corriente se encuentran conectados por defecto a la etapa de conversión y acumulación de energía (terminales NC1 y NC2). Una vez que la tensión en bornes del acumulador alcanza el valor mínimo para que el conversor DC/DC entre en operación, también lo hace la electrónica sin la necesidad de intervención externa.\\
 Cada vez que se desea realizar la medición de corriente, el microcontrolador activa la bobina del relay y desconecta el transformador de corriente del circuito de conversi\'{o}n para conectarlo al circuito de medición de valor RMS.\\
@@ -129,7 +129,7 @@ Además de aportar simpleza al esquemático final, el módulo elegido provee un 
  \end{figure}\\
 De esta manera las diferentes etapas de 3,3 V y 5 V se energizan únicamente cuando el microcontrolador pone en estado alto el pin ON a la entrada del \textit{load switch}.\\
  
-\subsection{Circuito de medición de valor RMS de corriente y acondicionamiento de señal}
+\subsection{Circuito de medición de valor RMS de corriente y acondicionamiento de señal}\label{circuito_rms}
 Para medir corriente mediante un transformador de intensidad, primero es necesario convertir la intensidad en una señal de tensión equivalente y a partir de esta, calcular su valor RMS. Un resistor shunt de 0,1 $\Omega$ con encapsulado TO-220-2 fue adoptado para convertir la corriente del secundario del transformador de intensidad en una señal de tensión apta para realizar su medición RMS.\\
 En el mercado existen circuitos integrados dedicados a realizar la medición RMS de señales. Generalmente otorgan una tensión DC a la salida proporcional al valor RMS de la tensión a la entrada.\\
 La tabla \ref{tabla_chip_rms} compara el ancho de banda, la tensión pico a pico máxima admitida a sus entradas y la tensión de operación de los posibles candidatos a utilizar en este proyecto.\\
