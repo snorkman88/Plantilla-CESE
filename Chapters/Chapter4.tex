@@ -36,10 +36,10 @@ Una vez validados los diseños, se desarrolló la placa final presentada en las 
 \section{Ensayos de laboratorio}
 Debido a la imposibilidad de acceder a un laboratorio con instrumental de precisión, las mediciones tomadas en los ensayos se realizaron por partes y en diferentes turnos.\\
 Como instrumento de medición se contó únicamente con un multímetro de la marca \textit{Hold Peak} modelo HP-770d \citep{hp770d}.\\
-Un generador de señales de la marca \textit{Feel Tech} modelo FY6900 se empleó para generar una señal de 1 Vpp para emular la señal de tensión generadas en bornes del shunt.
+Un generador de señales de la marca \textit{Feel Tech} modelo FY6900 se empleó para inyectar una señal de 1 Vpp que emula la señal de tensión generada en bornes del shunt.
 \subsection{Consumo en modo ahorro de energía o \textit{deep sleep}}
-El mult\'{i}metro elegido tiene un rango de medición de corriente que permite medir desde los uA hasta 400 mA. Este rango pareció suficiente para la medición de corriente en ambos estados sin la necesidad de cambiar de escala. Sin embargo, en las primeras rondas de medición se advirtió que al salir del modo ahorro de energía y transmitir, la corriente consumida por el hardware generó una tensión de burden en el instrumento que causó que el microcontrolador se reseteara por desvanecimiento (Brown Out Reset-).\\
-Como solución para el ensayo de consumo en \textit{deep sleep}, se grabó sobre la LoPy4 una versión de firmware que llevó al hardware al modo ahorro de energía apenas se energizó por al menos 10 minutos. Un tiempo suficiente para registrar el consumo de corriente en este modo.\\
+El mult\'{i}metro elegido tiene un rango que permite medir corriente desde los uA hasta 400 mA. Este rango pareció suficiente para la medición de corriente en ambos estados y evitar errores asociados al cambio de escala en el instrumento. Sin embargo, en las primeras rondas de medición se advirtió que al salir del modo ahorro de energía y transmitir, la corriente consumida por el hardware generó una tensión de burden en el instrumento que causó que el microcontrolador se reseteara por desvanecimiento (Brown Out Reset-).\\
+Como solución para el ensayo de consumo en \textit{deep sleep}, se grabó sobre la LoPy4 una versión de firmware que ni bien arranca, configura al hardware en modo ahorro de energía por al menos 10 minutos. Un tiempo suficiente para registrar el consumo de corriente en este modo.\\
 Para la medición de consumo durante la transmisión, se programó la versión final de firmware. Para sortear el problema de reseteo por desvanecimiento se utilizó la escala de amperes en conjunto con la función que retiene el pico máximo de la señal.\\
 La tabla \ref{tabla_consumos}, expone los resultados promedio para un total de 10 mediciones efectuadas en cada modo.\\
 % \usepackage{color}
@@ -56,14 +56,14 @@ La tabla \ref{tabla_consumos}, expone los resultados promedio para un total de 1
 	\end{tabular}\label{tabla_consumos}
 \end{table}\\
 Si bien el perfil estimado de consumo del hardware es similar al presentado en \ref{fig:ciclodeepsleep}, por falta de equipamiento no se ha podido capturar un oscilograma para graficar su perfil exacto. Tal gráfico se podría haber adquirido con un multímetro de 7 ½ dígitos con la función de almacenamiento.\\
-Desenergizar toda la electrónica salvo al microcontrolador, ha reducido el consumo total de la electrónica al orden de los uA. Este valor de consumo registrado, se encuentra debajo de lo requerido por el cliente en \ref{req_deep_sleep} e implica un aumento en la autonomía del acumulador.\\
+Desenergizar toda la electrónica salvo al microcontrolador, ha reducido el consumo total de la electrónica al orden de los uA. Este valor de consumo registrado, se encuentra debajo de lo requerido por el cliente en \ref{req_deep_sleep} y se traduce en un aumento de la autonomía del acumulador.\\
 
 
 \subsection{Autonom\'{i}a del supercapacitor}\label{ensayo_autonomia}
 Este ensayo tuvo como objetivo principal, verificar el cumplimiento del requerimiento \ref{req_autonomia}.\\
 Como única condición inicial, se adoptó que el supercapacitor esté cargado al máximo. Para acelerar el proceso, se lo cargó hasta tensi\'{o}n de 4,67 V mediante una batería de 9 V convencional.\\
 Como método de control y registro, se utilizó la tabla de base de datos \ref{tablacorrientesporfase}. El valor de tensión en bornes del supercapacitor se monitoreó de manera constante y se consideró como finalizada la prueba cuando se registró un cese en el almacenamiento de nuevos valores del nodo utilizado.\\
-Con un tiempo de ahorro de energía de 5 minutos luego de transmitir, el hardware desarrollado registro una autonomía de 19 horas. Este valor resulta ser un 60\% mayor que el requerido por el cliente. Se estima que el valor podría aumentar aún más anulando el indicador LED de encendido del relay y/o proponiendo un circuito de selección de modo basado en un arreglo de transistores.\\
+Con un tiempo de ahorro de energía de 5 minutos luego de transmitir, el hardware registr\'{o} una autonomía de 19 horas. Este valor resulta ser un 60\% mayor que el requerido por el cliente. Se estima que el valor podría aumentar aún más anulando el indicador LED de encendido del relay y/o proponiendo un circuito de selección de modo basado en un arreglo de transistores.\\
 
 \subsection{Medidor de valor RMS}\label{ensayo_medidor_rms}
 En este ensayo se analiz\'{o} la linealidad del circuito medidor de valor RMS implementado en la seccion \ref{circuito_rms}.\\
@@ -101,9 +101,9 @@ Por su parte, el error relativo result\'{o} aceptable en mas del 50 \% del rango
 \end{figure}\\
 \vspace{200px}
 \subsection{Deteccion de cortes}
-Este ensayo tuvo por objeto verificar el correcto funcionamiento del circuito de la figura \ref{fig:ctodetectorcortes}, encargado detectar la interrupcion en el servicio de distribucion de energía el\'{e}ctrica y generar una interrupci\'{o}n por hardware.\\
+Este ensayo tuvo por objeto verificar el correcto funcionamiento del circuito de la figura \ref{fig:ctodetectorcortes}, encargado detectar la interrupci\'{o}n en el servicio de distribuci\'{o}n de energía el\'{e}ctrica y generar una interrupci\'{o}n por hardware.\\
 Como condici\'{o}n inicial se carg\'{o} el banco de supercapacitores hasta una tensión cercana a 5 V. 
-El banco de pruebas de la figura \ref{fig:bancopruebae2e2} compuesto por una estufa de 13 A y un tomacorrientes se utilizo para simular la red de distribucion de energía electrica y sus posibles interrupciones en el suministro.\\
+El banco de pruebas de la figura \ref{fig:bancopruebae2e2} compuesto por una estufa que consume 13 A y un tomacorrientes que se utiliz\'{o} para simular la red de distribuci\'{o}n de energía el\'{e}ctrica y sus posibles interrupciones en el suministro.\\
 % TODO: \usepackage{graphicx} required
 \begin{figure}[h]
 	\centering
@@ -113,7 +113,7 @@ El banco de pruebas de la figura \ref{fig:bancopruebae2e2} compuesto por una est
 \end{figure}\\
 Para simular diferentes pasos de corrientes a traves del transformador de intensidad, se increment\'{o} el numero de vueltas en el devanado primario. De esta manera se aument\'{o} proporcionalmente el flujo magn\'{e}tico encauzado por el transformador de intensidad pero no la carga a la que se someti\'{o} la red el\'{e}ctrica del banco de prueba.\\
 Los resultados demostraron que una corriente en el primario por debajo de los 50 A, genera de manera exitosa en una interrupci\'{o}n por hardware. El microcontrolador sali\'{o} del modo ahorro de energía y envi\'{o} de manera correcta un reporte de estado indicando una lectura de 0 A a los servicios de backend.\\
-Una demostraci\'{o}n ante el cliente del funcionamiento de esta etapa dio por finalizado este ensayo de manera exitosa.\\
+Una demostraci\'{o}n del funcionamiento de esta etapa ante el cliente dió por finalizado este ensayo de manera exitosa.\\
 
 \section{Ensayos \textit{end-to-end}}
 Con objeto de realizar una prueba final de integraci\'{o}n y funcionamiento de todas las partes, se decidi\'{o} repetir los ensayos descritos en \ref{ensayo_autonomia} y \ref{ensayo_medidor_rms} con el agregado de utilizar los paneles de Grafana para la visualizaci\'{o}n de los datos. De este modo, intervinieron todos los m\'{o}dulos de hardware y software desarrollados para este proyecto. As\'{i} se logr\'{o} una verificaci\'{o}n del cumplimiento de los objetivos generales del proyecto.\\
@@ -134,5 +134,5 @@ Por su parte en el ensayo de medici\'{o}n de corriente de la figura \ref{fig:cap
 	\caption{Ensayo end-to-end de medici\'{o}n de corriente.}
 	\label{fig:capturahistoricodropdown}
 \end{figure}\\
-El agregado de un \textit{drop down menu} en ambos paneles, permite de manera r\'{a}pida elegir de qu\'{e} nodo de la flota sera la informaci\'{o}n a desplegar en las trazas.\\
-Por ultimo, con respecto a la rapidez de propagaci\'{o}n de los datos generados por el hardware hasta aparecer en la interfaz gráfica de usuario, el tiempo promedio fue de 5 a 7 segundos. Nuevamente una demostracion ante el usuario dio por finalizada satisfactoriamente la prueba.
+El agregado de un \textit{drop down menu} en ambos paneles, permite de manera r\'{a}pida elegir de qu\'{e} nodo de la flota será la informaci\'{o}n a desplegar en las trazas.\\
+Por \'{u}ltimo, con respecto a la rapidez de propagaci\'{o}n de los datos generados por el hardware hasta aparecer en la interfaz gráfica de usuario, el tiempo promedio fue de 5 a 7 segundos. Nuevamente una demostraci\'{o}n ante el cliente di\'{o} por finalizada satisfactoriamente la prueba.
